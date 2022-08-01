@@ -1,0 +1,26 @@
+name: "Kubectl Create Generic Secret"
+description: "Run kubectl create generic secret on the specified resources"
+inputs:
+  name:
+    description: 'Kubernetes Secret name'
+    required: true
+  path:
+    description: 'Path to the Kubernetes files to be included as secrets. Can be a file or a directory. If not specified, it will seek for literal'
+    required: false
+  literal:
+    description: 'Literal to be included as secret. If not specified, it will seek for path'
+    required: false
+  namespace:
+    description: 'If present, the namespace scope for this action. If not specified, it will use the current context'
+    required: false
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.name }}
+    - ${{ inputs.path }}
+    - ${{ inputs.literal }}
+    - ${{ inputs.namespace }}
+branding:
+  icon: 'check-circle'  
+  color: 'green'
